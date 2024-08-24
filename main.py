@@ -3,11 +3,12 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-
+variable = pd.read_csv("data_small/stations.txt", skiprows=20)
+data_d = variable.loc[:, ['STAID', 'STANAME                                 ']]
 @app.route("/")
 def home():
    # df = pd.read_csv("data_small/stations.txt", skiprows=20)
-    return render_template("home.html")
+    return render_template("home.html", data=data_d.to_html())
 
 @app.route("/api/v1/<station>/<date>")
 def about(station, date):
